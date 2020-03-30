@@ -1,0 +1,69 @@
+spring:
+  # jpa配置
+  jpa:
+    # 使用的数据库方言
+    #    database-platform: org.hibernate.dialect.H2Dialect
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    # 是否打印sql
+    show-sql: false
+    # 使用的数据库实现
+    database: mysql
+    #    database: h2
+    # hibernate 配置
+    properties:
+      hibernate:
+        # ddl 操作
+        ddl-auto: none
+        format_sql: false
+
+  # 数据源配置
+  datasource:
+    security:
+      # 用户名
+      username: root
+      # 密码
+      password: 19970117a
+      # 驱动类
+      #      driver-class-name: org.h2.Driver
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      # 连接url
+      #      url: jdbc:h2:mem:dev_template_base
+      url: jdbc:mysql://localhost:3306/test_scaffolding_admin?charset=utf8mb4&serverTimezone=Asia/Shanghai
+      # 初始化sql
+      #      schema: classpath:dev_scaffolding_security.sql
+      #连接池类型
+      type: com.alibaba.druid.pool.DruidDataSource
+      druid:
+        # 连接池初始化连接数
+        initial-size: 10
+        # 连接池最大连接数
+        max-active: 20
+        # 连接池最小空闲连接数
+        min-idle: 5
+        # 获取连接最大等待时间(单位: 毫秒)
+        max-wait: 3000
+        # 是否缓存preparedStatement(使用mysql做欸数据库，建议关闭)
+        pool-prepared-statements: false
+        max-pool-prepared-statement-per-connection-size: -1
+        # 检测连接是否有效的sql
+        validation-query: SELECT 1
+        # 检测连接是否有效的超时时间(单位: 秒)
+        validation-query-timeout: 2000
+        # 申请连接时执行validationQuery检测连接(配置会降低性能)
+        test-on-borrow: false
+        # 归还连接时执行validationQuery检测连接(配置会降低性能)
+        test-on-return: false
+        # 申请连接的时候检测，如果空闲时间大于timeBetweenEvictionRunsMillis，执行validationQuery检测连接是否有效
+        test-while-idle: true
+        # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接(单位: 毫秒)
+        time-between-eviction-runs-millis: 60
+        # 配置一个连接在池中最小生存的时间(单位: 毫秒)
+        min-evictable-idle-time-millis: 300000
+        # 配置拦截器
+        web-stat-filter:
+          #不统计这些请求数据
+          exclusions: "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*"
+          #访问监控网页的登录用户名和密码
+          stat-view-servlet:
+            login-username: security
+            login-password: security

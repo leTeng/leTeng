@@ -1,0 +1,44 @@
+spring:
+  application:
+    name: scaffolding
+  profiles:
+    active: dev
+  freemarker:
+    check-template-location: false
+  output:
+    ansi:
+      enabled: always
+server:
+  port: 8080
+# 后台自动生成代码配置
+generator:
+  auto:
+    configs:
+      - genConfig:
+          id: 1
+          author: eTeng
+          cover: true
+          moduleName: scaffolding-boot
+          pack: com.eteng.scaffolding.boot
+          path: e:/test
+          apiPath: e:/test
+        tables:
+          - mms_local_message
+#          - ums_role
+#          - ums_user_role
+#          - ums_menu
+#          - ums_role_menu
+#          - ums_resource
+#          - ums_role_resource
+#          - ums_client
+#      - genConfig:
+#          id: 1
+#          author: eTeng
+#          cover: false
+#          moduleName: scaffolding-security
+#          pack: com.eteng.scaffolding.security
+#          path: e:/test
+#          apiPath: e:/test
+#        tables:
+#          - gen_config
+#          - pm_product

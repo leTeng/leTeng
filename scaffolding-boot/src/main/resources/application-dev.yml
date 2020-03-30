@@ -1,0 +1,87 @@
+spring:
+  profiles:
+    # 包含子模块的配置文件列表
+    include:
+      - mini-app-dev
+      - admin-dev
+      - security-dev
+      - generator-dev
+#  mvc:
+#    servlet:
+#      # 配置应用上下文路径
+#      path: /scaffolding
+
+  # redis 配置
+  redis:
+
+    # 单节点配置
+    # redis 数据库
+    database: 1
+    # 地址
+    host: 127.0.0.1
+    # 端口
+    port: 6379
+    # 密码
+    password: 19970117a
+
+    #redis 集群节点配置
+#    cluster:
+#      # 配置节点： host:port
+#      nodes:
+#        - 127.0.0.1:6379
+#        - 127.0.0.1:6380
+#        - 127.0.0.1:6381
+#      # 配置节点数
+#      max-redirects: 3
+
+    # redis 连接池配置
+    lettuce:
+      pool:
+        # redis 最大连接
+        max-active: 10
+        # redis 最大空闲连接
+        max-idle: 5
+        # redis 最小空闲连接
+        min-idle: 5
+        # redis 连接定时检查
+        time-between-eviction-runs: 60
+
+  # rabbitmq
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: /
+#    手动提交消息
+    listener:
+      simple:
+        acknowledge-mode: manual
+      direct:
+        acknowledge-mode: manual
+# swagger 配置
+knife4j:
+  # 添加自定义文档
+  markdowns: classpath:markdowns/*
+  # 是否启动swagger
+  production: false
+  #认证
+  basic:
+    enable: true
+    username: api
+    password: api
+logging:
+  level:
+    org.apache.catalina: info
+    org.springframework.web: info
+    com.github.binarywang.demo.wx.miniapp: debug
+    cn.binarywang.wx.miniapp: debug
+
+transaction:
+  global:
+    exchange: user
+    post-queue: user.add
+    put-queue: user.update
+    delete-queue: user.delete
+
+

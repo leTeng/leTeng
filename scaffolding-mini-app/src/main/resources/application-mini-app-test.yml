@@ -1,0 +1,9 @@
+wx:
+  miniapp:
+    configs:
+      - appid: wxe630398824707ec1
+        secret: a166720e243f59f1ef86a6fc10128bc0
+        msgDataFormat: JSON
+      - appid: wxa12903dede7e3992
+        secret: cbf77a23144489a71a7fd9a1b672e7c8
+        msgDataFormat: JSON

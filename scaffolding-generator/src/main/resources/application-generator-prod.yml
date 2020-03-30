@@ -1,0 +1,41 @@
+spring:
+  freemarker:
+    check-template-location: false
+  output:
+    ansi:
+      enabled: always
+server:
+  port: 8080
+# 后台自动生成代码配置
+generator:
+  # 是否开启前端页面生成代码
+  enabled: false
+  auto:
+    configs:
+      # model1 生成配置
+      - genConfig:
+          # id(随意配置)
+          id: 1
+          # 作者
+          author: eTeng
+          # 是否之前的覆盖生成
+          cover: false
+          # 对应项目的模块名称
+          moduleName: scaffolding-admin
+          # 对应项目的模块下的包
+          pack: com.eteng.scaffolding.admin
+          # 生成对应的前端文件(根据前端需要)
+          path: e:/test
+        # 所在model下的表名称配置
+        tables:
+          - tb_base
+      # model2 生成配置(以此类推)
+      - genConfig:
+          id: 1
+          author: eTeng
+          cover: false
+          moduleName: scaffolding-security
+          pack: com.eteng.scaffolding.security
+          path: e:/test
+        tables:
+          - gen_config

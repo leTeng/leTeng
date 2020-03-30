@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration>
+<configuration debug="false">
+    <!--引入默认配置-->
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <!--定义应用名称属性-->
+    <property name="APP_NAME" value="scaffolding"/>
+    <contextName>${APP_NAME}</contextName>
+    <!--定义日志文件保存路径-->
+    <property name="LOG_FILE_PATH" value="e:/logs}"/>
+    <!--控制台appender-->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+    <!--DEBUG级别输出文件appender-->
+    <appender name="debugAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 文件路径 ，注意LOG_PATH是默认值，它的配置对应application.properties里的logging.path值-->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 文件名称 -->
+            <fileNamePattern>${LOG_FILE_PATH}/${APP_NAME}-debug-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <!-- 文件最大保存历史数量 -->
+            <MaxHistory>30</MaxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>DEBUG</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+    <!--ERROR级别输出文件appender-->
+    <appender name="errorAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 文件路径 ，注意LOG_PATH是默认值，它的配置对应application.properties里的logging.path值-->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 文件名称 -->
+            <fileNamePattern>${LOG_FILE_PATH}/${APP_NAME}-error-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <!-- 文件最大保存历史数量 -->
+            <MaxHistory>30</MaxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+    <!--INFO级别输出文件appender-->
+    <appender name="infoAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 文件路径 ，注意LOG_PATH是默认值，它的配置对应application.properties里的logging.path值-->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 文件名称 -->
+            <fileNamePattern>${LOG_FILE_PATH}/${APP_NAME}-info-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <!-- 文件最大保存历史数量 -->
+            <MaxHistory>30</MaxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+    <!--WARN级别输出文件appender-->
+    <appender name="warnAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 文件路径 ，注意LOG_PATH是默认值，它的配置对应application.properties里的logging.path值-->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 文件名称 -->
+            <fileNamePattern>${LOG_FILE_PATH}/${APP_NAME}-warn-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <!-- 文件最大保存历史数量 -->
+            <MaxHistory>30</MaxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>WARN</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+    <!--开发环境配置-->
+    <springProfile name="dev">
+        <!--定义日志文件保存路径-->
+        <property name="LOG_FILE_PATH" value="e:/logs}"/>
+        <root level="INFO">
+            <appender-ref ref="STDOUT"/>
+            <appender-ref ref="debugAppender"/>
+            <appender-ref ref="infoAppender"/>
+            <appender-ref ref="warnAppender"/>
+            <appender-ref ref="errorAppender"/>
+        </root>
+    </springProfile>
+    <!--测试环境配置-->
+    <springProfile name="test">
+        <!--定义日志文件保存路径-->
+        <property name="LOG_FILE_PATH" value="e:/logs}"/>
+        <root level="INFO">
+            <appender-ref ref="infoAppender"/>
+            <appender-ref ref="warnAppender"/>
+            <appender-ref ref="errorAppender"/>
+        </root>
+    </springProfile>
+    <!--生产环境配置-->
+    <springProfile name="prod">
+        <!--定义日志文件保存路径-->
+        <property name="LOG_FILE_PATH" value="e:/logs}"/>
+        <!--定义日志文件保存路径-->
+        <property name="LOG_FILE_PATH" value="e:/logs/}"/>
+        <root level="ERROR">
+            <appender-ref ref="errorAppender"/>
+        </root>
+    </springProfile>
+</configuration>
