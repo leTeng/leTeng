@@ -18,7 +18,7 @@ node{
     def deployHost = "${params.host}"
     def app = "${params.app}"
 
-    def mavenHome = tools 'M3'
+    def mavenHome = tool 'M3'
 
     stages {
 
