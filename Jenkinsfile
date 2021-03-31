@@ -6,7 +6,7 @@ node{
             parameters(
 
                 [
-                    choice(name:'host',choices: ['119.23.70.145','47.115.83.45','47.115.117.107'], description:'47.115.117.107 -> test1 \n\r 47.115.83.45 -> test2  \n\r 47.115.117.107 -> test3')
+                    choice(name:'host',choices: ['119.23.70.145','47.115.83.45','47.115.117.107'], description:'47.115.117.107 -> test1 \n\r 47.115.83.45 -> test2  \n\r 47.115.117.107 -> test3'),
                     choice(name:'app',choices: ['H5','ADMIN','APP','ES','PAY'], description:'需要发布的服务')
                 ]
             )
