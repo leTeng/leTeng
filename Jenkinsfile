@@ -36,7 +36,7 @@ node{
 
         // 打包ADMIN网关
         if("${app}" == "ADMIN"){
-            sh "${mavenHome}/bin/mvn clean install package -PDEV -U -T 1C -Dmaven.compile.fork=true   -Dmaven.test.skip=true -pl scaffolding-admin -am"
+            sh "${mavenHome}/bin/mvn clean install package -PDEV -U -T 1C -Dmaven.compile.fork=true   -Dmaven.test.skip=true -pl scaffolding-admin/ -am"
             sourceFiles = "scaffolding-admin/target/${adminServerName}"
         }
 
