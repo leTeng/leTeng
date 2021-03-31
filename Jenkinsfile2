@@ -9,7 +9,7 @@ node{
 
     def sourceFiles = null
     def h5ServerName = "seed-sunflower-h5-gateway-1.0.0-SNAPSHOT.jar"
-    def adminServerName = "scaffolding-admin-0.0.1-SNAPSHOT.jar"
+    def adminServerName = "seed-sunflower-admin-1.0.0-SNAPSHOT.jar"
     def appServerName = "seed-sunflower-app-gateway-1.0.0-SNAPSHOT.jar"
     def esServerName = "seed-es-server-1.0.0-SNAPSHOT.jar"
     def payServerName = "seed-payment-server-1.0.0-SNAPSHOT.jar"
@@ -21,7 +21,7 @@ node{
     def mavenHome = tools 'M3'
 
     stages {
-
+        
         stage('build'){
 
             // 打包H5网关
@@ -32,8 +32,8 @@ node{
 
             // 打包ADMIN网关
             if("${app}" == "ADMIN"){
-                sh '${mavenHome}/bin/mvn clean install package -P$PROFILE -U -T 1C -Dmaven.compile.fork=true   -Dmaven.test.skip=true -pl scaffolding-admin -am'
-                sourceFiles = "scaffolding-admin/target/${adminServerName}"
+                sh '${mavenHome}/bin/mvn clean install package -P$PROFILE -U -T 1C -Dmaven.compile.fork=true   -Dmaven.test.skip=true -pl seed-sunflower/seed-sunflower-admin-gateway -am'
+                sourceFiles = "seed-sunflower/seed-sunflower-admin-gateway/target/${adminServerName}"
             }
 
             // 打包APP网关
@@ -54,7 +54,7 @@ node{
                 sourceFiles = "seed-es-service/seed-es-server/target/${payServerName}"
             }
         }
-
+        
         stage('deploy'){
              steps {
                 def removePrefix = sourceFiles.substring(0, sourceFiles.lastIndexOf("/"))
