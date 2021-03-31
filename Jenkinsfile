@@ -24,9 +24,9 @@ node{
     def deployHost = "${params.host}"
     def app = "${params.app}"
 
-    def mavenHome = tool 'M3'
-
     stage('build'){
+
+        mavenHome = tool 'M3'
 
         // 打包H5网关
         if("${app}" == "H5"){
