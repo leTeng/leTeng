@@ -9,9 +9,8 @@ pipeline{
     }
     
     environment {
-        DEPLOY_HOST = "${params.testHost}"
+        DEPLOY_HOST = "${params.host}"
         DEPLOY_BRANCH = "${params.branch}"
-        SSH_PUBLIC_KEY = credentials()
     }
     
     tools {
