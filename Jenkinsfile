@@ -13,7 +13,7 @@ node{
     def appServerName = "seed-sunflower-app-gateway-1.0.0-SNAPSHOT.jar"
     def esServerName = "seed-es-server-1.0.0-SNAPSHOT.jar"
     def payServerName = "seed-payment-server-1.0.0-SNAPSHOT.jar"
-    def execCommand =
+    def execCommand = "echo deploy"
 
     def deployHost = "${params.host}"
     def app = "${params.app}"
