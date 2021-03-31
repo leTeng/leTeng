@@ -4,7 +4,7 @@ pipeline{
     
     // 参数化构建
     parameters {
-        choice(name:'host',choices: ['119.23.70.145','47.115.83.45','47.115.117.107'], description:'47.115.117.107 -> test1    47.115.83.45 -> test2   47.115.117.107 -> test3')
+        choice(name:'host',choices: ['119.23.70.145','47.115.83.45','47.115.117.107'], description:'47.115.117.107 -> test1 \r\n 47.115.83.45 -> test2  \r\n 47.115.117.107 -> test3')
         string(name: 'branch', defaultValue: '', description: '分支')
     }
     
