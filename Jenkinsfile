@@ -20,67 +20,62 @@ node{
 
     def mavenHome = tool 'M3'
 
-    stages {
+    stage('build'){
 
-        stage('build'){
-
-            // 打包H5网关
-            if("${app}" == "H5"){
-                sh '${mavenHome}/bin/mvn clean install package -P$PROFILE -U -T 1C -Dmaven.compile.fork=true   -Dmaven.test.skip=true -pl seed-sunflower/seed-sunflower-gateway -am'
-                sourceFiles = "seed-sunflower/seed-sunflower-gateway/target/${h5ServerName}"
-            }
-
-            // 打包ADMIN网关
-            if("${app}" == "ADMIN"){
-                sh '${mavenHome}/bin/mvn clean install package -P$PROFILE -U -T 1C -Dmaven.compile.fork=true   -Dmaven.test.skip=true -pl scaffolding-admin -am'
-                sourceFiles = "scaffolding-admin/target/${adminServerName}"
-            }
-
-            // 打包APP网关
-            if("${app}" == "APP"){
-                sh '${mavenHome}/bin/mvn clean install package -P$PROFILE -U -T 1C -Dmaven.compile.fork=true   -Dmaven.test.skip=true -pl seed-sunflower/seed-sunflower-app-gateway -am'
-                sourceFiles = "seed-sunflower/seed-sunflower-app-gateway/target/${appServerName}"
-            }
-
-            // 打包ES网关
-            if("${app}" == "ES"){
-                sh '${mavenHome}/bin/mvn clean install package -P$PROFILE -U -T 1C -Dmaven.compile.fork=true   -Dmaven.test.skip=true -pl seed-es-service/seed-es-server -am'
-                sourceFiles = "seed-es-service/seed-es-server/target/${esServerName}"
-            }
-
-            // 打包PAY网关
-            if("${app}" == "PAY"){
-                sh '${mavenHome}/bin/mvn clean install package -P$PROFILE -U -T 1C -Dmaven.compile.fork=true   -Dmaven.test.skip=true -pl seed-payment/seed-payment-server -am'
-                sourceFiles = "seed-es-service/seed-es-server/target/${payServerName}"
-            }
+        // 打包H5网关
+        if("${app}" == "H5"){
+            sh '${mavenHome}/bin/mvn clean install package -P$PROFILE -U -T 1C -Dmaven.compile.fork=true   -Dmaven.test.skip=true -pl seed-sunflower/seed-sunflower-gateway -am'
+            sourceFiles = "seed-sunflower/seed-sunflower-gateway/target/${h5ServerName}"
         }
 
-        stage('deploy'){
-             steps {
-                def removePrefix = sourceFiles.substring(0, sourceFiles.lastIndexOf("/"))
-                sshPublisher(
-                    continueOnError: false,
-                    failOnError: true,
-                    publishers: [
-                        sshPublisherDesc(
-                           configName: "${deployHost}",
-                           verbose: true,
-                           transfers: [
-                              sshTransfer(
-                                 // 打包后的jar文件
-                                 sourceFiles: "${sourceFiles}",
-                                 // 忽略前缀文件
-                                 removePrefix: "${removePrefix}",
-                                 // 远程目录(一般在jenkins全局配置一个基础路径)
-                                 remoteDirectory: '',
-                                 // 在目标机器执行的命令
-                                 execCommand: "${execCommand}"
-                              )
-                           ]
-                        )
-                    ]
+        // 打包ADMIN网关
+        if("${app}" == "ADMIN"){
+            sh '${mavenHome}/bin/mvn clean install package -P$PROFILE -U -T 1C -Dmaven.compile.fork=true   -Dmaven.test.skip=true -pl scaffolding-admin -am'
+            sourceFiles = "scaffolding-admin/target/${adminServerName}"
+        }
+
+        // 打包APP网关
+        if("${app}" == "APP"){
+            sh '${mavenHome}/bin/mvn clean install package -P$PROFILE -U -T 1C -Dmaven.compile.fork=true   -Dmaven.test.skip=true -pl seed-sunflower/seed-sunflower-app-gateway -am'
+            sourceFiles = "seed-sunflower/seed-sunflower-app-gateway/target/${appServerName}"
+        }
+
+        // 打包ES网关
+        if("${app}" == "ES"){
+            sh '${mavenHome}/bin/mvn clean install package -P$PROFILE -U -T 1C -Dmaven.compile.fork=true   -Dmaven.test.skip=true -pl seed-es-service/seed-es-server -am'
+            sourceFiles = "seed-es-service/seed-es-server/target/${esServerName}"
+        }
+
+        // 打包PAY网关
+        if("${app}" == "PAY"){
+            sh '${mavenHome}/bin/mvn clean install package -P$PROFILE -U -T 1C -Dmaven.compile.fork=true   -Dmaven.test.skip=true -pl seed-payment/seed-payment-server -am'
+            sourceFiles = "seed-es-service/seed-es-server/target/${payServerName}"
+        }
+    }
+
+    stage('deploy'){
+        def removePrefix = sourceFiles.substring(0, sourceFiles.lastIndexOf("/"))
+        sshPublisher(
+            continueOnError: false,
+            failOnError: true,
+            publishers: [
+                sshPublisherDesc(
+                   configName: "${deployHost}",
+                   verbose: true,
+                   transfers: [
+                      sshTransfer(
+                         // 打包后的jar文件
+                         sourceFiles: "${sourceFiles}",
+                         // 忽略前缀文件
+                         removePrefix: "${removePrefix}",
+                         // 远程目录(一般在jenkins全局配置一个基础路径)
+                         remoteDirectory: '',
+                         // 在目标机器执行的命令
+                         execCommand: "${execCommand}"
+                      )
+                   ]
                 )
-            }
-        }
+            ]
+        )
     }
 }
