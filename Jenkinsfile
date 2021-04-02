@@ -30,31 +30,31 @@ node{
 
         // 打包H5网关
         if("${app}" == "H5"){
-            sh "${mavenHome}/bin/mvn clean install package -PDEV -U -T 1C -Dmaven.compile.fork=true   -Dmaven.test.skip=true -pl seed-sunflower/seed-sunflower-gateway -am"
+            sh "${mavenHome}/bin/mvn clean package -PDEV -U -T 1C -Dmaven.compile.fork=true   -Dmaven.test.skip=true -pl seed-sunflower/seed-sunflower-gateway -am"
             sourceFiles = "seed-sunflower/seed-sunflower-gateway/target/${h5ServerName}"
         }
 
         // 打包ADMIN网关
         if("${app}" == "ADMIN"){
-            sh "${mavenHome}/bin/mvn clean install package -PDEV -U -T 1C -Dmaven.compile.fork=true   -Dmaven.test.skip=true -pl scaffolding-admin/ -am"
+            sh "${mavenHome}/bin/mvn clean package -PDEV -U -T 1C -Dmaven.compile.fork=true   -Dmaven.test.skip=true -pl scaffolding-admin/ -am"
             sourceFiles = "scaffolding-admin/target/${adminServerName}"
         }
 
         // 打包APP网关
         if("${app}" == "APP"){
-            sh "${mavenHome}/bin/mvn clean install package -PDEV -U -T 1C -Dmaven.compile.fork=true   -Dmaven.test.skip=true -pl seed-sunflower/seed-sunflower-app-gateway -am"
+            sh "${mavenHome}/bin/mvn clean package -PDEV -U -T 1C -Dmaven.compile.fork=true   -Dmaven.test.skip=true -pl seed-sunflower/seed-sunflower-app-gateway -am"
             sourceFiles = "seed-sunflower/seed-sunflower-app-gateway/target/${appServerName}"
         }
 
         // 打包ES网关
         if("${app}" == "ES"){
-            sh "${mavenHome}/bin/mvn clean install package -PDEV -U -T 1C -Dmaven.compile.fork=true   -Dmaven.test.skip=true -pl seed-es-service/seed-es-server -am"
+            sh "${mavenHome}/bin/mvn clean package -PDEV -U -T 1C -Dmaven.compile.fork=true   -Dmaven.test.skip=true -pl seed-es-service/seed-es-server -am"
             sourceFiles = "seed-es-service/seed-es-server/target/${esServerName}"
         }
 
         // 打包PAY网关
         if("${app}" == "PAY"){
-            sh "${mavenHome}/bin/mvn clean install package -PDEV -U -T 1C -Dmaven.compile.fork=true   -Dmaven.test.skip=true -pl seed-payment/seed-payment-server -am"
+            sh "${mavenHome}/bin/mvn clean package -PDEV -U -T 1C -Dmaven.compile.fork=true   -Dmaven.test.skip=true -pl seed-payment/seed-payment-server -am"
             sourceFiles = "seed-es-service/seed-es-server/target/${payServerName}"
         }
     }
